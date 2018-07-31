@@ -1,0 +1,37 @@
+version: '3'
+services:
+  server:
+    build: .
+    container_name: telemedi_server
+    links:
+     - database
+    working_dir: /var/www/html
+    volumes:
+     - .:/var/www/html
+    ports:
+     - 90:80
+    expose:
+     - 80
+  database:
+    image: mysql:5.7
+    container_name: telemedi_database
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: test
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    container_name: telemedi_phpmyadmin
+    links:
+     - database
+    environment:
+     - PMA_ARBITRARY=1
+    ports:
+     - 8081:80
+    volumes:
+     - /sessions
+  composer:
+    image: prooph/composer:7.1
+    container_name: telemedi_composer
+    working_dir: /app
+    volumes: 
+     - .:/app
