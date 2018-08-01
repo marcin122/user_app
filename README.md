@@ -1,4 +1,4 @@
-# Recruitment task
+# Application to manage user accounts
 
 ### Steps to run project on docker
 1. Clone repository
